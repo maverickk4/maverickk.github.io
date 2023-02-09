@@ -1,0 +1,44 @@
+iframe#wpmSpeech {
+    display: block;
+    width: 100%;
+    height: 500px;
+    border: none;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 20px;
+    }
+    
+    iframe#timerspeech {
+    display: block;
+    width: 100%;
+    min-height: 500px;
+    border: none;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 20px;
+    }
+    
+    iframe#practicespeech {
+    display: block;
+    width: 100%;
+    min-height: 1000px;
+    border: none;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 20px;
+    }
+    
+    body {
+    background-image: url(tyson.jpg);
+    background-repeat: repeat;
+    background-position: top center;
+    background-size: auto;
+    opacity: .9;
+    }
+
+    footer {
+        color: white;
+        background-color: rgba(0,0,0,.1);
+        text-align: center;
+        padding: 5px;
+    }

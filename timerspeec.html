@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="timerspeec.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Speech Timer Calculator</h2>
+      <input type="number" id="wpm" placeholder="Words per minute">
+      <textarea id="speec" placeholder="Enter your speech here, this will use your words per minute to tell you how long your speech will take you!"></textarea>
+      <button id="calculate">Calculate</button>
+      <div id="exit"></div>
+    </div>
+    <script>
+      const calculateBtn = document.querySelector("#calculate");
+      const wpmInputt = document.querySelector("#wpm");
+      const speecInput = document.querySelector("#speec");
+      const exit = document.querySelector("#exit");calculateBtn.addEventListener("click", () => {
+    const wpm = wpmInputt.value;
+    const speec = speecInput.value;
+    const words = speec.split(" ").length;
+    const time = words / wpm;
+    const minutes = Math.floor(time);
+    const seconds = Math.round((time - minutes) * 60);
+  
+    if (minutes === 0) {
+      exit.innerHTML = `At ${wpm} words per minute, your speech will take around ${seconds} seconds.`;
+    } else {
+      exit.innerHTML = `At ${wpm} words per minute, your speech will take around ${minutes} minutes and ${seconds} seconds.`;
+    }
+  });
+  </script>
+  </body>
+</html>

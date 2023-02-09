@@ -1,0 +1,109 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="practicespee.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Want to Practice Your Speech?</h1>
+    <textarea id="speechInput" placeholder="Enter Your Speech, then, once you press start, we will log your speech out in the time you entered so you get a better idea of how fast you have to go!"></textarea>
+    <br>
+    <input type="number" id="minutesInput" placeholder="Enter Minutes">
+    <input type="number" id="secondsInput" placeholder="Enter Seconds">
+    <br><br>
+    <button id="startBtn">Start</button>
+    <br><br>
+    <div id="spee"></div>
+    <br><br>
+    <button id="stopBtn" style="display:none">Stop</button>
+    <button id="resumeBtn" style="display:none">Resume</button>
+    <button id="restartBtn" style="display:none">Restart</button>
+    <p id="timer">Time left: <span id="timeLeft">--</span></p>
+  </div>
+  <script>
+    const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+const resumeBtn = document.getElementById("resumeBtn");
+const restartBtn = document.getElementById("restartBtn");
+const speechInput = document.getElementById("speechInput");
+const minutesInput = document.getElementById("minutesInput");
+const secondsInput = document.getElementById("secondsInput");
+const speechDiv = document.getElementById("spee");
+const timerDiv = document.getElementById("timer");
+let intervalId;
+let words;
+let timer;
+let counter = 0;
+
+startBtn.addEventListener("click", function() {
+  if (!speechInput.value) {
+    alert("Please add your speech");
+    return;
+  }
+  startBtn.style.display = "none";
+  stopBtn.style.display = "inline-block";
+  words = speechInput.value.split(" ");
+  timer = (parseInt(minutesInput.value) || 0) * 60 + (parseInt(secondsInput.value) || 0);
+  intervalId = setInterval(function() {
+    speechDiv.innerHTML += words[counter] + " ";
+    counter++;
+    let remaining = Math.round(timer - counter * (timer / words.length));
+    let minutes = Math.floor(remaining / 60);
+    let seconds = remaining % 60;
+    if (minutes > 0 && seconds > 0) {
+      timerDiv.innerHTML = `Time remaining: ${minutes} minutes ${seconds} seconds`;
+    } else if (minutes > 0) {
+      timerDiv.innerHTML = `Time remaining: ${minutes} minutes`;
+    } else if (seconds > 0) {
+      timerDiv.innerHTML = `Time remaining: ${seconds} seconds`;
+    }
+    if (counter === words.length) {
+      clearInterval(intervalId);
+      stopBtn.style.display = "none";
+      resumeBtn.style.display = "none";
+      restartBtn.style.display = "inline-block";
+    }
+  }, timer/words.length * 1000);
+});
+
+stopBtn.addEventListener("click", function() {
+  clearInterval(intervalId);
+  stopBtn.style.display = "none";
+  resumeBtn.style.display = "inline-block";
+  restartBtn.style.display = "inline-block";
+});
+
+resumeBtn.addEventListener("click", function() {
+  intervalId = setInterval(function() {
+    speechDiv.innerHTML += words[counter] + " ";
+    counter++;
+    let remaining = Math.round(timer - counter * (timer / words.length));
+    let minutes = Math.floor(remaining / 60);
+    let seconds = remaining % 60;
+    if (minutes > 0 && seconds > 0) {
+      timerDiv.innerHTML = `Time remaining: ${minutes} minutes ${seconds} seconds`;
+    } else if (minutes > 0) {
+      timerDiv.innerHTML = `Time remaining: ${minutes} minutes`;
+    } else if (seconds > 0) {
+      timerDiv.innerHTML = `Time remaining: ${seconds} seconds`;
+    }
+    if (counter === words.length) {
+      clearInterval(intervalId);
+      stopBtn.style.display = "none";
+      resumeBtn.style.display = "none";
+      restartBtn.style.display = "inline-block";
+    }
+  }, timer/words.length);
+  resumeBtn.style.display = "none";
+  stopBtn.style.display = "inline-block";
+});
+
+restartBtn.addEventListener("click", function() {
+  speechDiv.innerHTML = "";
+  counter = 0;
+  timerDiv.innerHTML = "";
+  restartBtn.style.display = "none";
+  startBtn.style.display = "inline-block";
+});
+  </script>
+  </body>
+  </html>
